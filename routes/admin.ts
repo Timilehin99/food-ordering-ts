@@ -2,7 +2,7 @@ import express, {Router, Request, Response, NextFunction} from "express";
 
 const router = Router();
 
-router.get("/", (req: Request, res: Response) => {
+router.get("/auth/login", (req: Request, res: Response) => {
     res.send("slinki mi slinki.");
 })
 

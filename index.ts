@@ -1,8 +1,12 @@
 import express from "express";
+import bodyParser from "body-parser";
 
-import {admin, vendor} from "./routes/index";
+import {admin, vendor} from "./routes";
 
 const app = express()
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 
 app.use("/admin", admin);
 app.use("/vendor", vendor);
