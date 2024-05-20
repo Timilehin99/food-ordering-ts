@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose"
+
 export interface CreateVendorInput{
     name: string,
     ownerName: string,
@@ -9,6 +11,13 @@ export interface CreateVendorInput{
 }
 
 export interface vendorLoginInput{
-    email: String,
-    password: String
+    email: string,
+    password: string
+}
+
+export interface VendorPayload{
+    _id: string,
+    name: string,
+    email: string,
+    foodType: [string]
 }

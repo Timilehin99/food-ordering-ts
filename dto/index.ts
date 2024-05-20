@@ -1,2 +1,2 @@
 export * from "./vendor.dto"
-export * from "./admin"
+export * from "./auth.dto"

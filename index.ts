@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { MONGODB_URL } from "./config";
 
 import {admin, vendor} from "./routes";
+import { validate } from "./middleware";
 
 const app = express()
 
