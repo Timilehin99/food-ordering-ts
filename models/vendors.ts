@@ -30,6 +30,16 @@ const vendorSchema = new Schema<vendorDoc>({
     }
 
 },{
+    toJSON:{
+        transform(doc, ret){
+            delete ret.password,
+            delete ret.email,
+            delete ret.createdAt,
+            delete ret.updatedAt,
+            delete ret._id,
+            delete ret.__v
+        }
+    },
     timestamps: true
 })
 

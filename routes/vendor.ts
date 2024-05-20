@@ -1,10 +1,9 @@
 import express, {Router, Request, Response, NextFunction} from "express";
-import { createVendor, getVendor, getVendorID } from "../controllers";
+import {vendorLogin} from "../controllers"
 
 const router = Router();
 
-router.post("/create", createVendor);
-router.get("/", getVendor);
-router.get("/:id", getVendorID);
+router.post("/login", vendorLogin )
+
 
 export {router as vendor};
