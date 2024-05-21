@@ -10,6 +10,13 @@ export interface CreateVendorInput{
     location: string
 }
 
+export interface ModifyVendor{
+    name: string,
+    location: string,
+    phoneNo: string,
+    foodType: [string]
+}
+
 export interface vendorLoginInput{
     email: string,
     password: string
