@@ -5,6 +5,7 @@ import { MONGODB_URL } from "./config";
 
 import {admin, vendor} from "./routes";
 import { validate } from "./middleware";
+import path from "path"
 
 const app = express()
 
@@ -14,6 +15,7 @@ mongoose.connect(MONGODB_URL, ).
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use('/images', express.static(path.join(__dirname, 'images')))
 
 app.use("/admin", admin);
 app.use("/vendor", vendor);

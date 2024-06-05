@@ -9,6 +9,7 @@ interface vendorDoc{
     phoneNo: string,
     location: string,
     serviceAvailable: boolean,
+    coverImage: [string],
     rating: number,
     dateCreated: Date,
     foods: any
@@ -19,15 +20,16 @@ const vendorSchema = new Schema<vendorDoc>({
     name :{type: String, required: true},
     ownerName: {type: String, required: true},
     email: {type: String, required: true},
+    coverImage: {type: [String]},
     foodType: {type: [String], required: true},
     password: {type: String, required: true},
     phoneNo: {type: String, required: true},
     location:{type: String, required: true},
     serviceAvailable:{ type: Boolean, default: false},
     rating: {type: Number, default: 0},
-    foods: {type: [mongoose.SchemaTypes.ObjectId],
+    foods: [{type: mongoose.SchemaTypes.ObjectId,
         ref: "food"
-    }
+    }]
 
 },{
     toJSON:{

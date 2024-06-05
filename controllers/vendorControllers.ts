@@ -1,6 +1,6 @@
 import {Request, Response, NextFunction} from "express";
-import { Vendor } from "../models";
-import {ModifyVendor, vendorLoginInput} from "../dto"
+import { Vendor, Food } from "../models";
+import {ModifyVendor, vendorLoginInput, createdFoodInput} from "../dto"
 import { checkDB } from "./adminControllers";
 import { createSignature, verifyPassword } from "../utilities";
 
@@ -105,3 +105,84 @@ export const UpdateVendorService = async(req: Request, res: Response, next:NextF
     
 }
 
+export const UpdateVendorCoverImage = async(req: Request, res: Response, next:NextFunction) => {
+
+    const user = req.user
+    if(user){
+
+        const vendor = await Vendor.findById(user._id);
+
+        if(vendor){
+
+            const files = req.files as [Express.Multer.File];
+            const names =  files.map((file: Express.Multer.File) => file.filename)
+
+            vendor.coverImage.push(...names)
+            const result =  await vendor.save()
+            return res.json(result)
+        }
+
+        return res.status(400).json({message:"This user does not exist."})
+    
+    
+    }
+    
+}
+
+export const addFood = async(req: Request, res:Response, next: NextFunction) =>{
+
+    const user = req.user
+
+    if(user){
+        const {name, description, price, category, prepTime, foodType} = <createdFoodInput>req.body;
+
+        const vendor = await Vendor.findById(user._id)
+
+        if(vendor){
+
+            const files = req.files as [Express.Multer.File];
+            const names =  files.map((file: Express.Multer.File) => file.filename)
+
+            const food = await Food.create({
+                vendorId : vendor._id,
+                name: name,
+                price: price,
+                description: description,
+                category: category,
+                prepTime: prepTime,
+                images: names,
+                foodType: foodType
+
+            })
+
+            vendor.foods.push(food)
+            const result = await vendor.save()
+
+            return res.status(200).json(result)
+        }
+        return res.json({message: "Error on the dancefloor!!"})
+
+    }
+    return res.json({message: "Error on the dancefloor"})
+
+
+}
+
+export const getFoods = async(req: Request, res:Response, next: NextFunction) =>{
+
+    const user = req.user
+
+    if (user){
+        const foods = await Food.find({vendorId : user._id})
+
+        if(foods){
+            return res.json(foods)
+        }
+    }
+
+    const foods = await Food.find({}).sort({"name":1});
+     
+    return res.json({foods})
+
+    
+}
