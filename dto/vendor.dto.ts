@@ -3,6 +3,7 @@ import { ObjectId } from "mongoose"
 export interface CreateVendorInput{
     name: string,
     ownerName: string,
+    pinCode: number,
     email: string,
     foodType: [string],
     password: string,

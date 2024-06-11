@@ -15,7 +15,7 @@ export const checkDB = async (id:String | undefined, email?: String) =>{
 }
 
 export const createVendor = async (req: Request, res: Response, next: NextFunction) =>{
-    const{name, ownerName, location, password, foodType, email, phoneNo } = <CreateVendorInput>req.body
+    const{name, ownerName, pinCode, location, password, foodType, email, phoneNo } = <CreateVendorInput>req.body
 
     const vendorCheck = await checkDB('', email)
 
@@ -28,6 +28,7 @@ export const createVendor = async (req: Request, res: Response, next: NextFuncti
     const newV = await Vendor.create({
         name: name,
         ownerName: ownerName,
+        pinCode:pinCode,
         location: location,
         password: newPassword,
         foodType: foodType,

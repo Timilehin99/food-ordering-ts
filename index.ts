@@ -1,31 +1,16 @@
-import express from "express";
-import bodyParser from "body-parser";
-import mongoose from "mongoose";
-import { MONGODB_URL } from "./config";
+import express from 'express';
+import App from './services/MainApp'
+import dbConnection from './services/Database'
 
-import {admin, vendor} from "./routes";
-import { validate } from "./middleware";
-import path from "path"
+const Startup = async () =>{
+    const app = express()
 
-const app = express()
+    await dbConnection()
+    await App(app)
 
-mongoose.connect(MONGODB_URL, ).
-    then(()=>{console.log("DB is live")}).
-    catch((err)=>{console.log(err)})
+    app.listen(3000, ()=>{
+        console.log("We are live on port 3000 folks.")
+    })
+}
 
-app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: true}))
-app.use('/images', express.static(path.join(__dirname, 'images')))
-
-app.use("/admin", admin);
-app.use("/vendor", vendor);
-
-
-app.get('/', (req, res) =>{
-    res.send("Home Page baby!")
-})
-
-
-app.listen(3000, ()=>{
-    console.log("Connection is live on port 3000!!!")
-})
+Startup()
