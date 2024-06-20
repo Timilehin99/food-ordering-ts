@@ -56,3 +56,40 @@ export const GetQuick = async (req:Request,res:Response, next: NextFunction) => 
     return res.status(400).send({message: "No food for you"})
 
 }
+
+export const GetFoods = async (req:Request,res:Response, next: NextFunction) => {
+
+    const pincode = req.params.pincode
+
+    const result = await Vendor.find({ pinCode: pincode, serviceAvailable: true})
+        .populate("foods")
+
+    if(result.length > 0){
+
+        let foodComp:any = []
+
+        result.map(vendor => {
+            foodComp.push(...vendor.foods)
+        })
+
+        return res.status(200).send(foodComp);
+    }
+
+    return res.status(400).send({message: "No food for you"})
+
+}
+
+export const findRestaurantByID = async (req:Request,res:Response, next: NextFunction) => {
+
+    const id = req.params.id
+
+    const result = await Vendor.findById(id)
+
+    if(result){
+        return res.status(200).send(result);
+
+    }
+
+    return res.status(400).send({message: "No food for you"})
+
+}
