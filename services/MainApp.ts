@@ -1,7 +1,8 @@
 import express, {Application }from "express";
 import bodyParser from "body-parser";
-import {admin, vendor, shopping} from "../routes";
+import {admin, vendor, shopping, customer} from "../routes";
 import path from "path"
+
 
 export default async(app:Application) => {
 
@@ -12,6 +13,7 @@ export default async(app:Application) => {
     app.use("/admin", admin);
     app.use("/vendor", vendor);
     app.use("/shopping", shopping)
+    app.use("customer", customer)
 
 
     app.get('/', (req, res) =>{
