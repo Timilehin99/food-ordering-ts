@@ -9,7 +9,7 @@ export interface CustomerDoc extends Document {
     phone: string,
     verified: boolean,
     otp: number,
-    otp_expiry: number,
+    otp_expiry: Date,
     lat: number,
     long: number   
  
@@ -23,7 +23,7 @@ const CustomerSchema = new Schema({
     address : {type: String},
     verified : {type: Boolean, default: false},
     otp : {type: Number},
-    otp_expiry:{type : Number, default : 0},
+    otp_expiry:{type : Date, default : 0},
     images: {type: [String]},
     lat: {type: Number},
     long: {type: Number}

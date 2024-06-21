@@ -5,7 +5,6 @@ export class CreateCustomer{
     @IsEmail()
     email : string
 
-    @IsEmpty()
     phone : string
 
     @Length(4)
@@ -13,6 +12,19 @@ export class CreateCustomer{
 
     @Length(6,12)
     password: string
+}
 
+export class LoginInfo{
+
+    @IsEmail()
+    email: string
+
+    password: string
+}
+
+export interface CustomerPayload{
+    _id : string,
+    email : string,
+    verified: boolean
 
 }

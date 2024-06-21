@@ -15,7 +15,7 @@ export const verifyPassword = async (password:string, hash: string)=>{
     return await bcrypt.compare(password,hash)
 }
 
-export const createSignature = (payload: VendorPayload) =>{
+export const createSignature = (payload: AuthPayload) =>{
 
     const signature = jwt.sign(payload, APP_SECRET, {expiresIn: 3600})
 

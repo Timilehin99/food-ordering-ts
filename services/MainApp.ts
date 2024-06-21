@@ -13,7 +13,7 @@ export default async(app:Application) => {
     app.use("/admin", admin);
     app.use("/vendor", vendor);
     app.use("/shopping", shopping)
-    app.use("customer", customer)
+    app.use("/customer", customer)
 
 
     app.get('/', (req, res) =>{
