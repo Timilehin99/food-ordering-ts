@@ -1,5 +1,5 @@
 import express, {Router, Request, Response, NextFunction} from "express";
-import { CustomerLogin, RequestOTP, newCustomer, verifyCustomer } from "../controllers";
+import { CustomerLogin, EditCustomerProfile, GetCustomerProfile, RequestOTP, newCustomer, verifyCustomer } from "../controllers";
 import { validate } from "../middleware";
 import { GenerateOTP } from "../utilities";
 
@@ -13,6 +13,8 @@ router.use(validate);
 
 router.patch("/verify", verifyCustomer)
 router.get("/otp", RequestOTP)
+router.get("/profile", GetCustomerProfile)
+router.patch("/profile", EditCustomerProfile)
 
 
 

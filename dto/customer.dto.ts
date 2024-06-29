@@ -22,6 +22,14 @@ export class LoginInfo{
     password: string
 }
 
+export class EditInfo{
+    @Length(4)
+    username: string
+
+    address: string
+    
+}
+
 export interface CustomerPayload{
     _id : string,
     email : string,

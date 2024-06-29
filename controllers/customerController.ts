@@ -1,5 +1,5 @@
 import {Request, Response, NextFunction} from "express";
-import { CreateCustomer, LoginInfo} from "../dto/customer.dto";
+import { CreateCustomer, LoginInfo, EditInfo } from "../dto/customer.dto";
 import { plainToClass } from "class-transformer";
 import { ValidationError, validate } from "class-validator";
 import { Customer } from "../models/customer";
@@ -152,5 +152,64 @@ export const RequestOTP = async (req: Request, res:Response, next:NextFunction) 
 
     }
     return res.status(400).json({message: "OTP generation error."})
+
+}
+
+export const GetCustomerProfile = async (req: Request, res:Response, next:NextFunction) =>{
+
+    const user = req.user
+
+    if (user){
+        const profile = await Customer.findById(user._id);
+
+        if (profile){
+           return res.status(200).json(profile)
+        }
+
+        return res.status(400).json({message: "Error retrieving profile"})
+
+    }
+
+    return res.status(400).json({message: "Error retrieving profile"})
+
+}
+
+export const EditCustomerProfile = async (req: Request, res:Response, next:NextFunction) =>{
+
+    const user = req.user
+
+    const EditInput = plainToClass(EditInfo, req.body)
+
+    const EditErrors = await validate(EditInput, {validationError: {target : true}})
+
+    if(EditErrors.length > 0){
+        return res.status(400).json({error: EditErrors})
+
+    }
+
+    const {username, address, } = EditInput
+
+    if(user){
+        const profile = await Customer.findById(user._id);
+
+        if (profile){
+           profile.username = username
+           profile.address = address
+
+           const result = await profile.save()
+
+           return res.status(200).json({message: "Profile update successfully."})
+
+        }
+
+        return res.status(400).json({message: "Error updating profile"})
+
+        
+
+
+    }
+
+    return res.status(400).json({message: "Error updating profile"})
+
 
 }
