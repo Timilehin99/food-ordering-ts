@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { Request } from "express";
 import jwt from "jsonwebtoken";
 import { APP_SECRET } from "../config";

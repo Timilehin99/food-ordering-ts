@@ -43,7 +43,7 @@ export const newCustomer = async (req: Request, res:Response, next:NextFunction)
         await sendOTP(otp, phone)
 
         const signature = createSignature({
-            _id: result._id,
+            _id: result.id,
             email: result.email,
             verified: result.verified
         })
@@ -72,7 +72,7 @@ export const verifyCustomer = async (req: Request, res:Response, next:NextFuncti
                 const savedProfile = await profile.save()
 
                 const newSig = createSignature({
-                    _id: savedProfile._id,
+                    _id: savedProfile.id,
                     email: savedProfile.email,
                     verified: savedProfile.verified
                 }
@@ -113,7 +113,7 @@ export const CustomerLogin = async (req: Request, res:Response, next:NextFunctio
         if(passT){
 
             const signature = createSignature({
-                _id: user._id,
+                _id: user.id,
                 email: user.email,
                 verified: user.verified
             })
